@@ -22,13 +22,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = 'SECRET_KEY'
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['ebdeploy.eba-mfzvps7e.us-east-2.elasticbeanstalk.com']
 
 
 # Application definition
@@ -81,27 +81,27 @@ WSGI_APPLICATION = 'door_access_control_system.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 
-# if 'RDS_HOSTNAME' in os.environ:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.mysql',
-#             'NAME': os.environ['RDS_DB_NAME'],
-#             'USER': os.environ['RDS_USERNAME'],
-#             'PASSWORD': os.environ['RDS_PASSWORD'],
-#             'HOST': os.environ['RDS_HOSTNAME'],
-#             'PORT': os.environ['RDS_PORT'],
-#         }
-#     }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'DB_NAME',
-        'USER': 'RDS_USERNAME',
-        'PASSWORD': 'RDS_PASSWORD!',
-        'HOST': 'RDS_HOSTNAME',
-        'PORT': 'RDS_PORT',
-    }
-}
+ if 'RDS_HOSTNAME' in os.environ:
+     DATABASES = {
+         'default': {
+             'ENGINE': 'django.db.backends.mysql',
+             'NAME': os.environ['RDS_DB_NAME'],
+             'USER': os.environ['RDS_USERNAME'],
+             'PASSWORD': os.environ['RDS_PASSWORD'],
+             'HOST': os.environ['RDS_HOSTNAME'],
+             'PORT': os.environ['RDS_PORT'],
+         }
+     }
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'accesssystem',
+#        'USER': 'root',
+#        'PASSWORD': 'Wjdskatls1!',
+#        'HOST': 'dyphi-database.c3lgfpuf2kn4.us-east-2.rds.amazonaws.com',
+#        'PORT': '3306',
+#    }
+#}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
