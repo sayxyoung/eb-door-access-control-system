@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import my_settings
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,13 +23,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
-
+if 'DJANGO_SECRET_KEY' in os.environ:
+    SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+else:
+    SECRET_KEY = my_settings.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ebdeploy.eba-mfzvps7e.us-east-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['*', '18.116.53.211', '18.116.53.211:8000', 'ebdeploy.eba-mfzvps7e.us-east-2.elasticbeanstalk.com']
 
 
 # Application definition
@@ -92,16 +95,8 @@ if 'RDS_HOSTNAME' in os.environ:
             'PORT': os.environ['RDS_PORT'],
         }
         }
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': 'accesssystem',
-#        'USER': 'root',
-#        'PASSWORD': 'Wjdskatls1!',
-#        'HOST': 'dyphi-database.c3lgfpuf2kn4.us-east-2.rds.amazonaws.com',
-#        'PORT': '3306',
-#    }
-#}
+else:
+    DATABASES = my_settings.DATABASES
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
